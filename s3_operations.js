@@ -61,7 +61,10 @@ function s3uploadFile(file) {
     }
     console.log("success");
     console.log(data);
+
   });
+
+  return "S3 File Uploaded Successfully"
 }
 
 module.exports = {

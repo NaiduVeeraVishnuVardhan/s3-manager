@@ -14,33 +14,27 @@ module.exports = {
   },
 
   async upload(req, res) {
-    try {
+
       await uploadFile(req, res);
-      if (req.file == undefined) {
+
+      if (req.file === undefined) {
         return res.status(400).send({ message: "Please upload a file!" });
       }
+
       try {
         const result = await s3Op.s3uploadFile(req.file);
         res.status(201).json({
           error: false,
-          message: "file store",
+          message: "S3 File Upload Success",
           result,
         });
       } catch (e) {
         res.status(500).json({
           error: true,
-          message: "File could not be uploaded",
+          message: "S3 File Upload Failed",
         });
         console.log(e);
       }
+    },
 
-      res.status(200).send({
-        message: "Uploaded the file successfully: " + req.file.originalname,
-      });
-    } catch (err) {
-      res.status(500).send({
-        message: `Could not upload the file: ${req.file.originalname}. ${err}`,
-      });
-    }
-  },
 };
