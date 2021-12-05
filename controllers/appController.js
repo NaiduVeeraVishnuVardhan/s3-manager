@@ -1,5 +1,5 @@
 const s3Op = require("../s3_operations");
-const uploadFile = require("../Middlewareupload");
+
 module.exports = {
   async download(req, res) {
     const fileKey = req.body.key;
@@ -14,9 +14,6 @@ module.exports = {
   },
 
   async upload(req, res) {
-
-      await uploadFile(req, res);
-
       if (req.file === undefined) {
         return res.status(400).send({ message: "Please upload a file!" });
       }
